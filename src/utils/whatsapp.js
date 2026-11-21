@@ -16,7 +16,31 @@ export const inquiryUrl = (topic = "general") =>
 
 const LINE = "━━━━━━━━━━━━━━━━━━";
 
-export const buildOrderMessage = (items, totals, customer = {}) => {
+export const buildInquiryMessage = ({ name = "", phone = "", message = "" }) => {
+  const val = (v) => (v && v.trim() ? v.trim() : "_Not provided_");
+  const lines = [
+    "Assalam-o-Alaikum! 🌙",
+    "",
+    `I would like to make an inquiry about *${business.name}*.`,
+    "",
+    LINE,
+    "👤 *SENDER DETAILS*",
+    LINE,
+    `*Name:* ${val(name)}`,
+    `*Phone:* ${val(phone)}`,
+    "",
+    LINE,
+    "💬 *MESSAGE*",
+    LINE,
+    message.trim(),
+    "",
+    "Kindly respond when convenient.",
+    "Thank you! 🙏",
+  ];
+  return lines.join("\n");
+};
+
+export const buildOrderMessage = (items, totals, customer = {}, orderId = null) => {
   const val = (v) => (v && v.trim() ? v.trim() : "_Not provided_");
   const money = (n) => (n === null ? "_To be confirmed_" : formatPKR(n));
 
@@ -24,6 +48,7 @@ export const buildOrderMessage = (items, totals, customer = {}) => {
     "Assalam-o-Alaikum! 🌙",
     "",
     `I would like to place an order from *${business.name}*.`,
+    ...(orderId ? [`*Order Reference:* #${orderId}`] : []),
     "",
     LINE,
     "👤 *CUSTOMER DETAILS*",

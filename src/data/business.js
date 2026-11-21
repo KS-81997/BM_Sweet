@@ -20,6 +20,7 @@ export const business = {
   openingHours: [],
   // Social links: { label: "Facebook", url: "https://..." }. Leave empty until provided.
   socials: [],
+  shopOverviewImage: "/images/shop-overview.jpg",
 
   description: {
     en: "Bismillah Jalebi House is a traditional Pakistani sweets and jalebi shop on Outfall Road, Islampura, Lahore.",

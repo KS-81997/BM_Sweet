@@ -20,16 +20,32 @@ export function useSeo({ title, description, path = "/", jsonLd }) {
     const full = title ? `${title} | ${brand}` : `${brand} – ${t("brand.tagline")}`;
     document.title = full;
     setMeta("name", "description", description);
+    setMeta("name", "robots", "index, follow");
     setMeta("property", "og:title", full);
     setMeta("property", "og:description", description);
-    setMeta("property", "og:url", business.siteUrl + path);
+
+    // Resolve site URL dynamically: prioritize configured business domain, otherwise use live origin (e.g. vercel.app)
+    const getBaseUrl = () => {
+      if (business.siteUrl && !business.siteUrl.includes("YOUR-DOMAIN")) {
+        return business.siteUrl.replace(/\/$/, "");
+      }
+      if (typeof window !== "undefined" && window.location.origin) {
+        return window.location.origin.replace(/\/$/, "");
+      }
+      return "";
+    };
+
+    const baseUrl = getBaseUrl();
+    const fullUrl = baseUrl + path;
+
+    setMeta("property", "og:url", fullUrl);
     let canon = document.head.querySelector('link[rel="canonical"]');
     if (!canon) {
       canon = document.createElement("link");
       canon.rel = "canonical";
       document.head.appendChild(canon);
     }
-    canon.href = business.siteUrl + path;
+    canon.href = fullUrl;
 
     let ld = document.getElementById("page-jsonld");
     if (jsonLd) {

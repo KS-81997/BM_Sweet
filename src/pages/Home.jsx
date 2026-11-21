@@ -86,11 +86,24 @@ export default function Home() {
 
       <section className="section bg-cream-100">
         <div className="container-page grid items-center gap-8 md:grid-cols-2">
-          <img src="/images/shop.jpg" alt={t("home.shopAlt")} width="1000" height="750" loading="lazy" className="aspect-[4/3] w-full rounded-2xl object-cover object-[50%_52%] shadow-lg" />
+          <div className="relative overflow-hidden rounded-3xl border-4 border-surface shadow-xl">
+            <img
+              src="/images/shop-overview.jpg"
+              alt={t("home.shopAlt")}
+              width="768"
+              height="1024"
+              loading="lazy"
+              className="max-h-[480px] w-full object-cover object-center transition duration-500 hover:scale-105"
+            />
+          </div>
           <div>
-            <h2 className="text-3xl font-bold">{t("home.aboutShop")}</h2>
-            <p className="mt-3 text-brown-700">{loc(business.description)}</p>
-            <Link to="/about" className="btn-outline mt-5">{t("home.readMore")}</Link>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-saffron-600">{t("about.eyebrow")}</p>
+            <h2 className="mt-2 text-3xl font-bold">{t("home.aboutShop")}</h2>
+            <p className="mt-3 text-brown-700 leading-relaxed">{loc(business.description)}</p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Link to="/about" className="btn-outline">{t("home.readMore")}</Link>
+              <WhatsAppButton>{t("home.msgUs")}</WhatsAppButton>
+            </div>
           </div>
         </div>
       </section>

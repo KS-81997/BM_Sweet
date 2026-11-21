@@ -31,8 +31,24 @@ export default function About() {
           <p>{business.establishedYear ? t("about.journeyYear", { year: business.establishedYear }) : t("about.journeyFallback")}</p>
         </Block>
         <Block id="about" title={t("about.title", { name })}>
-          <p>{loc(business.description)}</p>
-          {owner && <p>{t("about.owner", { name: owner })}</p>}
+          <div className="grid gap-6 md:grid-cols-2 items-center">
+            <div>
+              <p>{loc(business.description)}</p>
+              {owner && <p className="mt-2">{t("about.owner", { name: owner })}</p>}
+              <p className="mt-3 text-sm text-brown-600">
+                {loc(business.address)}
+              </p>
+            </div>
+            <div className="overflow-hidden rounded-2xl border-2 border-gold-400/30 shadow-lg">
+              <img
+                src="/images/shop-overview.jpg"
+                alt={t("about.stallAlt")}
+                width="768"
+                height="1024"
+                className="max-h-[380px] w-full object-cover object-center"
+              />
+            </div>
+          </div>
         </Block>
         <Block id="process" title={t("about.process")}>
           <p>{loc(business.processIntro)}</p>
