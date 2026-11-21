@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens (RGB channels). The .dark block swaps the warm-cream palette for a dark-brown one. */
+:root {
+  --surface: 255 255 255;
+  --cream-50: 255 253 248;
+  --cream-100: 253 246 231;
+  --cream-200: 248 235 207;
+  --brown-600: 107 66 38;
+  --brown-700: 82 48 25;
+  --brown-800: 61 35 18;
+  --brown-900: 42 23 10;
+  --saffron-600: 201 122 6;
+  --saffron-700: 161 95 5;
+}
+.dark {
+  color-scheme: dark;
+  --surface: 40 28 19;
+  --cream-50: 24 16 10;
+  --cream-100: 33 23 15;
+  --cream-200: 50 36 24;
+  --brown-600: 190 165 135;
+  --brown-700: 210 188 160;
+  --brown-800: 236 220 198;
+  --brown-900: 250 240 224;
+  --saffron-600: 245 165 36;
+  --saffron-700: 250 185 80;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-cream-50 font-sans text-brown-800 antialiased transition-colors duration-300; overflow-x: hidden; }
+  h1, h2, h3 { @apply font-display text-brown-900; }
+  :focus-visible { @apply outline outline-2 outline-offset-2 outline-saffron-500; }
+}
+
+@layer components {
+  .container-page { @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition duration-200 disabled:cursor-not-allowed disabled:opacity-50; min-height: 44px; }
+  .btn-primary { @apply btn bg-saffron-500 text-white shadow-sm hover:bg-saffron-600; }
+  .btn-whatsapp { @apply btn bg-[#1f9d55] text-white shadow-sm hover:bg-[#178044]; }
+  .btn-outline { @apply btn border border-brown-700/30 bg-surface/60 text-brown-800 hover:border-saffron-500 hover:bg-cream-100; }
+  .section { @apply py-14 sm:py-20; }
+  .card { @apply rounded-2xl border border-gold-400/25 bg-surface shadow-sm; }
+  .input { @apply w-full rounded-xl border border-brown-700/20 bg-surface px-3 py-2.5 text-sm text-brown-800 placeholder:text-brown-600/50; }
+}
+
+/* Urdu (RTL): Nastaliq script needs taller lines and no letter-spacing/uppercase (breaks letter joining). */
+html[dir="rtl"] body,
+html[dir="rtl"] .font-display,
+html[dir="rtl"] input,
+html[dir="rtl"] textarea,
+html[dir="rtl"] select,
+html[dir="rtl"] button {
+  font-family: "Noto Nastaliq Urdu", "Noto Naskh Arabic", serif;
+}
+html[dir="rtl"] body { line-height: 2; }
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 { line-height: 1.9 !important; }
+html[dir="rtl"] * { letter-spacing: normal !important; text-transform: none !important; }
+html[dir="rtl"] .btn { line-height: 1.6; }
+/* Phone numbers, prices and similar stay left-to-right */
+.ltr-text { direction: ltr; unicode-bidi: isolate; display: inline-block; }
+
+@keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.fade-up { animation: fade-up .5s ease both; }
+@media (prefers-reduced-motion: reduce) { .fade-up { animation: none; } html { scroll-behavior: auto; } }
